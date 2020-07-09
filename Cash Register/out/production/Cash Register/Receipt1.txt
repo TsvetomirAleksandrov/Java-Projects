@@ -1,0 +1,6 @@
+Number of Receipt:  1
+Thu Jul 09 09:40:35 EEST 2020
+Cashier: Dimitar Petrov
+Goods:
+Chocolate    1.95lv  x5
+Beer    2.5lv  x3

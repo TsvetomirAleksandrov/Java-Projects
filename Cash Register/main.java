@@ -1,18 +1,26 @@
 import java.util.*;
-public class main {
-    public static void main(String[] args){
-        Cashier boiko = new Cashier(45545,"Boiko");
-        Goods banan = new Goods(55,"banan",1.50,"15-02-2020");
-        Goods apple = new Goods(56,"apple",1.20,"15-03-2020");
-        Shop kaufland = new Shop();
-        kaufland.addCashier(boiko);
-        kaufland.addGood(banan,5);
-        kaufland.addGood(apple, 45);
-        Receipt katy = new Receipt();
-        katy.addToCart(banan,6, kaufland);
-        katy.addToCart(apple, 34, kaufland);
-        CashRegister kasa1 = new CashRegister(boiko);
-        kasa1.getReceipt(katy);
 
+public class main
+{
+    public static void main(String[] args)
+    {
+        Cashier cashier = new Cashier(45545,"Dimitar Petrov");
+
+        Goods Beer = new Goods(55,"Beer",2.50,"15-02-2020");
+        Goods Chocolate = new Goods(56,"Chocolate",1.950,"15-03-2020");
+
+        Shop FreshMarket = new Shop();
+
+        FreshMarket.addCashier(cashier);
+        FreshMarket.addGood(Beer,5);
+        FreshMarket.addGood(Chocolate, 40);
+
+        Receipt person = new Receipt();
+
+        person.addToCart(Beer,3, FreshMarket);
+        person.addToCart(Chocolate, 5, FreshMarket);
+
+        CashRegister one = new CashRegister(cashier);
+        one.getReceipt(person);
     }
 }

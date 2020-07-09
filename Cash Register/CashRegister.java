@@ -8,29 +8,42 @@ public class CashRegister extends Receipt implements Runnable{
     private List<String> tmpName= new ArrayList<>();
     private List<Double> tmpPrice= new ArrayList<>();
     private List<Integer> tmpQuantity= new ArrayList<>();
+    double allSum;
+
     Thread t;
     CashRegister(){}
-    CashRegister(Cashier a){
+
+    CashRegister(Cashier a)
+    {
         this.current.name = a.name;
         this.current.id = a.id;
         t = new Thread(this, "Thread");
-
     };
-    public void run(){
-        try{
+
+    public void run()
+    {
+        try
+        {
             FileWriter fw = new FileWriter("Receipt" + numberOfReceipts + ".txt");
             PrintWriter pw = new PrintWriter(fw);
+
             pw.println("Number of Receipt:  " + numberOfReceipts);
             pw.println(currentDate);
             pw.println("Cashier: " + current.name);
             pw.println("Goods:");
+
             for (int i=0;i<tmpQuantity.size();i++)
             {
+                allSum += (tmpPrice.get(i) * tmpQuantity.get(i));
                 pw.println(tmpName.get(i) + "    " + tmpPrice.get(i) + "lv  " + "x" + tmpQuantity.get(i));
             }
+            pw.println(" ");
+            pw.println("Obshta suma: " + allSum + "lv.");
             pw.close();
             t.start();
-        }catch (IOException e)
+        }
+
+        catch (IOException e)
         {
             System.out.println("error");
         }
@@ -38,10 +51,9 @@ public class CashRegister extends Receipt implements Runnable{
         {
             System.out.println(" ");
         }
-
     }
-    public void getReceipt(Receipt customer){
-
+    public void getReceipt(Receipt customer)
+    {
         for (Map.Entry<Goods, Integer> entry : customer.Cart.entrySet()) {
             Goods key = entry.getKey();
             Integer quantityReceipt = entry.getValue();
@@ -50,12 +62,11 @@ public class CashRegister extends Receipt implements Runnable{
             tmpQuantity.add(quantityReceipt);
             moneyMade += key.getPrice()*quantityReceipt;
         }
-
             t.start();
-
     }
-    public static double getMoneyMade(){
+
+    public static double getMoneyMade()
+    {
         return moneyMade;
     }
-
 }
