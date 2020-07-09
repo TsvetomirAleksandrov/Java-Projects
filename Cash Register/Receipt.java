@@ -1,9 +1,11 @@
 import java.util.*;
 
-public class Receipt {
+public class Receipt extends Shop
+{
+    //kolichka
     public HashMap<Goods, Integer> Cart = new HashMap<>();
+
     public static int numberOfReceipts = -1;
-    protected HashMap<String, HashMap<Double,Integer>> theGoods = new HashMap<String, HashMap<Double,Integer>>();
 
     Receipt()
     {
@@ -16,21 +18,19 @@ public class Receipt {
         {
             if (buyQuantity > shop.getQuantity(goods))
             {
-                int tmp = buyQuantity-shop.getQuantity(goods);
+                int tmp = buyQuantity - shop.getQuantity(goods);
                 throw new NotEoughQuantityException("Not enough quantity of " + goods.getName() + ", " + tmp + " more needed");
             }
             else
                 {
+                    int goodQuantityUpdate = shop.getQuantity(goods) - buyQuantity;
                 Cart.put(goods, buyQuantity);
+                allGoods.replace(goods, goodQuantityUpdate);
             }
         }
         catch(NotEoughQuantityException e)
         {
             System.out.println(e.getMessage());
         }
-    }
-    public static int getNumberOfReceipts()
-    {
-        return numberOfReceipts;
     }
 }

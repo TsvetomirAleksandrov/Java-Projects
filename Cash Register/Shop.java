@@ -1,28 +1,23 @@
 import java.util.*;
 public class Shop
 {
+    //spisuk sus stokite
     public HashMap<Goods, Integer> allGoods = new HashMap<>();
+//spisuk s prodavachite
     private List<Cashier> allCashiers = new ArrayList<>();
-    private static int allReceipts = Receipt.getNumberOfReceipts();
-    private static double allMoney = CashRegister.getMoneyMade();
-    public void addCashier(Cashier a)
+
+
+    public void addCashier(Cashier cashier)
     {
-        allCashiers.add(a);
+        allCashiers.add(cashier);
     }
-    public void addGood(Goods a, int quantity)
+    public void addGood(Goods goods, int quantity)
     {
-        allGoods.put(a,quantity);
+        allGoods.put(goods, quantity);
     }
-    public int getQuantity(Goods a)
+    public int getQuantity(Goods goods)
     {
-        return allGoods.get(a);
+        return allGoods.get(goods);
     }
-    public static double checkMoney()
-    {
-        return allMoney;
-    }
-    public static int getReceipts()
-    {
-        return allReceipts;
-    }
+
 }

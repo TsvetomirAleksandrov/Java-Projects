@@ -1,22 +1,24 @@
 import java.util.*;
 import java.io.*;
-public class CashRegister extends Receipt implements Runnable{
-    protected File receipt;
-    protected Cashier current = new Cashier(0,"N/A");
-    protected static double moneyMade;
+
+public class CashRegister extends Receipt implements Runnable
+{
+    protected Cashier currentCashier = new Cashier(0,"N/A");
     protected Date currentDate = new Date();
+
     private List<String> tmpName= new ArrayList<>();
     private List<Double> tmpPrice= new ArrayList<>();
     private List<Integer> tmpQuantity= new ArrayList<>();
+
     double allSum;
-
     Thread t;
-    CashRegister(){}
 
-    CashRegister(Cashier a)
+
+//vruzka m/u kasa i kasier
+    CashRegister(Cashier c)
     {
-        this.current.name = a.name;
-        this.current.id = a.id;
+        this.currentCashier.name = c.name;
+        this.currentCashier.id = c.id;
         t = new Thread(this, "Thread");
     };
 
@@ -29,7 +31,7 @@ public class CashRegister extends Receipt implements Runnable{
 
             pw.println("Number of Receipt:  " + numberOfReceipts);
             pw.println(currentDate);
-            pw.println("Cashier: " + current.name);
+            pw.println("Cashier: " + currentCashier.name);
             pw.println("Goods:");
 
             for (int i=0;i<tmpQuantity.size();i++)
@@ -52,21 +54,19 @@ public class CashRegister extends Receipt implements Runnable{
             System.out.println(" ");
         }
     }
+
     public void getReceipt(Receipt customer)
     {
-        for (Map.Entry<Goods, Integer> entry : customer.Cart.entrySet()) {
+        for (Map.Entry<Goods, Integer> entry : customer.Cart.entrySet())
+        {
             Goods key = entry.getKey();
             Integer quantityReceipt = entry.getValue();
             tmpName.add(key.getName());
             tmpPrice.add(key.getPrice());
             tmpQuantity.add(quantityReceipt);
-            moneyMade += key.getPrice()*quantityReceipt;
         }
             t.start();
     }
 
-    public static double getMoneyMade()
-    {
-        return moneyMade;
-    }
+
 }

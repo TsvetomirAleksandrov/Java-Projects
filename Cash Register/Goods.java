@@ -6,7 +6,8 @@ public class Goods
     protected double price;
     protected String expiredAt;
 
-    Goods(){
+    Goods()
+    {
         id = 0;
         name = "N/a";
         price = 0;
